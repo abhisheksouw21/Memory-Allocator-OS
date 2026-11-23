@@ -27,9 +27,9 @@ namespace memory_allocation_gui_app
 
         private void addHole(int startAddress, int endAddress)
         {
-            if (endAddress > memory_size)
+            if (startAddress < 0 || endAddress <= startAddress || endAddress > memory_size)
             {
-                MessageBox.Show("You cannot have a hole outside of the memory size.");
+                MessageBox.Show("Enter a positive hole size within the memory range.");
                 return;
             }
             hole newHole;
@@ -78,6 +78,21 @@ namespace memory_allocation_gui_app
                 holes.RemoveAt(hc - 1);
             }
             holes.Add(newHole);
+        }
+        private bool tryAddHoleFromInputs()
+        {
+            int startAddress;
+            int holeSize;
+            if (!Int32.TryParse(holeStartAddressTxt.Text, out startAddress) ||
+                !Int32.TryParse(holeSizeTxt.Text, out holeSize) ||
+                startAddress < 0 || holeSize <= 0 || startAddress > memory_size - holeSize)
+            {
+                MessageBox.Show("Enter a valid hole start address and size within the memory range.");
+                return false;
+            }
+
+            addHole(startAddress, startAddress + holeSize);
+            return true;
         }
         private void removeHole(int startAddress, int endAddress)
         {
@@ -400,7 +415,8 @@ namespace memory_allocation_gui_app
                 outputPnl.Size = new Size(228, 437);
                 if (holeStartAddressTxt.Text != "Hole Start Address" && holeSizeTxt.Text != "Hole Size")
                 {
-                    addHole(Convert.ToInt32(holeStartAddressTxt.Text), Convert.ToInt32(holeStartAddressTxt.Text) + Convert.ToInt32(holeSizeTxt.Text));
+                    if (!tryAddHoleFromInputs())
+                        return;
                 }
                 holeStartAddressTxt.Text = "Hole Start Address";
                 holeSizeTxt.Text = "Hole Size";
@@ -510,7 +526,8 @@ namespace memory_allocation_gui_app
             {
                 if (holeStartAddressTxt.Text != "Hole Start Address" && holeSizeTxt.Text != "Hole Size")
                 {
-                    addHole(Convert.ToInt32(holeStartAddressTxt.Text), Convert.ToInt32(holeStartAddressTxt.Text) + Convert.ToInt32(holeSizeTxt.Text));
+                    if (!tryAddHoleFromInputs())
+                        return;
                     holeStartAddressLbl.Text = "Hole #" + (holes.Count() + 1).ToString() + " Start Address: ";
                     holeStartAddressTxt.Text = "Hole Start Address";
                     holeStartAddressTxt.ForeColor = SystemColors.InactiveCaption;
