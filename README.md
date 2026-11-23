@@ -1,20 +1,38 @@
-<p align="center">
-  <img src="screenshots/3.png?raw=true"/>
-</p>
+# Memory-Allocator-OS
+
+A Windows Forms simulator for contiguous memory allocation in operating systems.
+It lets you define memory holes, add and remove processes, compare allocation
+strategies, and compact memory visually.
 
 <p align="center">
-  <h1 align="center"> Operating Systems Memory Allocation Simulator </h1>
+  <img src="screenshots/3.png?raw=true" alt="Memory allocator simulator" />
 </p>
 
-<p align="center">
-  <b>The memory simulator</b> that <i>you kept searching for</i>.
-</p>
+## Features
 
-<p align="center">
-  <b>
-    <a href="memory-allocator-gui-app/">Source Code</a>
- - <a href="screenshots/">Screenshots</a>
- - <a href="os-memory-allocator-documentation.pdf">Documentation</a>
- - <a href="https://github.com/BoulaZa5/os-memory-allocator-gui-app/releases">Releases</a>
-  </b>
-</p>
+- First-fit, best-fit, and worst-fit allocation strategies
+- Configurable initial memory holes
+- Visual process allocation map
+- Process deallocation by double-clicking its block
+- Memory compaction
+
+## Getting started
+
+The project targets **.NET Framework 4.0** and is intended to run on Windows.
+
+1. Open `memory-allocator-gui-app/memory-allocation-gui-app.csproj` in Visual Studio.
+2. Build the project.
+3. Run the `memory-allocation-gui-app` Windows application.
+
+Set a positive memory size, add one or more holes, then choose an allocation
+strategy before adding processes.
+
+## Project resources
+
+- [Source code](memory-allocator-gui-app/)
+- [Screenshots](screenshots/)
+- [Project documentation](os-memory-allocator-documentation.pdf)
+
+## License
+
+This project is distributed under the [MIT License](LICENSE).
